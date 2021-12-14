@@ -1,0 +1,93 @@
+JFDML JFormDesigner: "7.0.4.0.360" Java: "11.0.9.1" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
+			name: "this"
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
+				name: "panel1"
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "label1"
+					"text": "用户注册中心"
+					"font": new java.awt.Font( "华文新魏", 1, 22 )
+					"horizontalAlignment": 0
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 55
+					"y": 25
+					"width": 195
+					"height": 45
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "label2"
+					"text": "用户名:"
+					"font": new java.awt.Font( "华文新魏", 1, 14 )
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 30
+					"y": 125
+					"width": 75
+					"height": 30
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "usernameField"
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 105
+					"y": 125
+					"width": 180
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "label4"
+					"text": "密  码："
+					"font": new java.awt.Font( "华文新魏", 1, 14 )
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 30
+					"y": 210
+					"width": 65
+					"height": 25
+				} )
+				add( new FormComponent( "javax.swing.JPasswordField" ) {
+					name: "passwordField1"
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 105
+					"y": 205
+					"width": 180
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "label3"
+					"text": "再次输入密码:"
+					"font": new java.awt.Font( "华文新魏", 1, 14 )
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 5
+					"y": 290
+					"width": 95
+					"height": 21
+				} )
+				add( new FormComponent( "javax.swing.JPasswordField" ) {
+					name: "passwordField2"
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 105
+					"y": 285
+					"width": 180
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "button1"
+					"text": "注册"
+					"font": new java.awt.Font( "华文新魏", 1, 14 )
+					addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "register", true ) )
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 105
+					"y": 400
+					"width": 105
+				} )
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"x": 0
+				"y": 0
+				"height": 490
+				"width": 315
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 105, 0 )
+			"size": new java.awt.Dimension( 315, 520 )
+		} )
+	}
+}

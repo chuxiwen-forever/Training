@@ -1019,98 +1019,103 @@ SELECT|sys.sys_config
       <Comment>报名人</Comment>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <key id="310" parent="287" name="PRIMARY">
+    <column id="310" parent="287" name="activity_id">
+      <Position>5</Position>
+      <Comment>报名的活动id</Comment>
+      <DataType>int|0s</DataType>
+    </column>
+    <key id="311" parent="287" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="311" parent="288" name="id">
+    <column id="312" parent="288" name="id">
       <Position>1</Position>
       <Comment>评论id</Comment>
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <column id="312" parent="288" name="username">
+    <column id="313" parent="288" name="username">
       <Position>2</Position>
       <Comment>评论用户名称</Comment>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <column id="313" parent="288" name="create_time">
+    <column id="314" parent="288" name="create_time">
       <Position>3</Position>
       <Comment>发表时间</Comment>
       <DataType>timestamp|0s</DataType>
     </column>
-    <column id="314" parent="288" name="content">
+    <column id="315" parent="288" name="content">
       <Position>4</Position>
       <Comment>评论消息</Comment>
       <DataType>text|0s</DataType>
     </column>
-    <key id="315" parent="288" name="PRIMARY">
+    <key id="316" parent="288" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="316" parent="289" name="id">
+    <column id="317" parent="289" name="id">
       <Position>1</Position>
       <Comment>用户id</Comment>
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <column id="317" parent="289" name="username">
+    <column id="318" parent="289" name="username">
       <Position>2</Position>
       <Comment>用户名</Comment>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <column id="318" parent="289" name="password">
+    <column id="319" parent="289" name="password">
       <Position>3</Position>
       <Comment>用户密码</Comment>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <key id="319" parent="289" name="PRIMARY">
+    <key id="320" parent="289" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="320" parent="290" name="id">
+    <column id="321" parent="290" name="id">
       <Position>1</Position>
       <Comment>场地id</Comment>
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <column id="321" parent="290" name="name">
+    <column id="322" parent="290" name="name">
       <Position>2</Position>
       <Comment>场地名字</Comment>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <column id="322" parent="290" name="type">
+    <column id="323" parent="290" name="type">
       <Position>3</Position>
       <Comment>场地类型</Comment>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <column id="323" parent="290" name="purpose">
+    <column id="324" parent="290" name="purpose">
       <Position>4</Position>
       <Comment>用途</Comment>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <column id="324" parent="290" name="note">
+    <column id="325" parent="290" name="note">
       <Position>5</Position>
       <Comment>备注</Comment>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <column id="325" parent="290" name="state">
+    <column id="326" parent="290" name="state">
       <Position>6</Position>
       <Comment>状态</Comment>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <column id="326" parent="290" name="introduce">
+    <column id="327" parent="290" name="introduce">
       <Position>7</Position>
       <Comment>介绍</Comment>
       <DataType>text|0s</DataType>
     </column>
-    <key id="327" parent="290" name="PRIMARY">
+    <key id="328" parent="290" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>

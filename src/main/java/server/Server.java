@@ -1,16 +1,20 @@
 package server;
 
 import VO.AppealVO;
+import VO.ApplyVO;
 import VO.PeopleVO;
 import VO.SiteVO;
 import entity.People;
 import service.AppealService;
+import service.ApplyService;
 import service.PeopleService;
 import service.SiteService;
 import service.impl.AppealServiceImpl;
+import service.impl.ApplyServiceImpl;
 import service.impl.PeopleServiceImpl;
 import service.impl.SiteServiceImpl;
 import util.MessageUtil;
+import util.TrainingContext;
 import util.TypeNumber;
 
 import java.io.ObjectInputStream;
@@ -22,6 +26,7 @@ public class Server implements TypeNumber {
     private static PeopleService peopleService = new PeopleServiceImpl();
     private static AppealService appealService = new AppealServiceImpl();
     private static SiteService siteService = new SiteServiceImpl();
+    private static ApplyService applyService = new ApplyServiceImpl();
 
     public static void main(String[] args) throws Exception {
         ServerSocket serverSocket = new ServerSocket(8100);
@@ -41,6 +46,7 @@ public class Server implements TypeNumber {
                     People login = peopleService.login(need.getUsername(), need.getPassword());
                     if (login != null){
                         message.setResult(SUCCESS);
+                        TrainingContext.setLocal_User_Name(need.getUsername());
                     }else {
                         message.setResult(FAILED);
                     }
@@ -56,6 +62,10 @@ public class Server implements TypeNumber {
             }else if (object instanceof SiteVO){ //场地类型
                 SiteVO siteVO = (SiteVO) object;
                 siteService.applySite(siteVO);
+                message.setResult(SUCCESS);
+            }else if (object instanceof ApplyVO){//参加活动请求
+                ApplyVO applyVO = (ApplyVO) object;
+                applyService.addApply(applyVO);
                 message.setResult(SUCCESS);
             }
 

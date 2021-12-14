@@ -6,21 +6,18 @@ package view;
 
 import VO.AppealVO;
 import VO.SiteVO;
-import entity.Comment;
+import VO.ApplyVO;
+import VO.VO;
+import service.ActivityService;
 import service.AnnouncementService;
-import service.AppealService;
 import service.CommentServer;
+import service.impl.ActivityServiceImpl;
 import service.impl.AnnouncementServiceImpl;
-import service.impl.AppealServiceImpl;
 import service.impl.CommentServerImpl;
-import util.LoginRegisterSocket;
-import util.SwingUtil;
-import util.TrainingContext;
-import util.TypeNumber;
+import util.*;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import javax.swing.*;
@@ -29,15 +26,15 @@ import javax.swing.*;
  * @author Admin
  */
 public class MainView extends JFrame implements TypeNumber {
-    private CommentServer commentServer = new CommentServerImpl();
-    private AnnouncementService announcementService = new AnnouncementServiceImpl();
+    private static CommentServer commentServer = new CommentServerImpl();
 
     public MainView() {
         this.setVisible(true);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         initComponents();
-        showAllComment();
-        showAnnouncement();
+        ShowInSwing.showAllComment(editorPane1);
+        ShowInSwing.showAnnouncement(announcement);
+        ShowInSwing.showActivity(activity);
     }
 
     /**
@@ -45,10 +42,8 @@ public class MainView extends JFrame implements TypeNumber {
      */
     //发送诉求
     private void bingo(MouseEvent e) {
-        String titleText = title.getText();
-        String contentText = content.getText();
-        String noteText = note.getText();
-        AppealVO appealVO = new AppealVO(titleText,contentText,noteText);
+        List<String> stringList = SwingUtil.getFieldToString(title, content, note);
+        AppealVO appealVO = new AppealVO(stringList.get(0),stringList.get(1),stringList.get(2));
         Integer message = LoginRegisterSocket.getVOReturnMessage(appealVO);
         if (message.equals(SUCCESS)){
             JOptionPane.showMessageDialog(null,"感谢您的反馈!");
@@ -72,18 +67,7 @@ public class MainView extends JFrame implements TypeNumber {
         commentServer.giveOutComment(comment);
         JOptionPane.showMessageDialog(null,"发表成功！");
         SwingUtil.makeFieldToEmpty(textArea1);
-        showAllComment();
-    }
-
-    //展示评论
-    private void showAllComment(){
-        Map<String, Object> map = commentServer.selectAll();
-        String value = (String) map.get("value");
-        if (value.equals("No")){
-            editorPane1.setText("<h1><strong>暂无评论!!</strong></h1>");
-        }else if (value.equals("Yes")){
-            editorPane1.setText((String) map.get("data"));
-        }
+        ShowInSwing.showAllComment(editorPane1);
     }
 
 
@@ -104,29 +88,33 @@ public class MainView extends JFrame implements TypeNumber {
         SwingUtil.makeFieldToEmpty(siteName,siteType,siteUseage,siteNote,siteStatus,siteIntro);
     }
 
-
     /**
-     * Announcement
+     *Apply
      */
-
-    //显示公告
-    private void showAnnouncement(){
-        Map<String, Object> map = announcementService.returnAnnouncement();
-        String value = (String) map.get("value");
-        if (value.equals("No")){
-            announcement.setText("<h1><strong>暂无公告!!</strong></h1>");
-        }else if (value.equals("Yes")){
-            announcement.setText((String) map.get("data"));
+    //参加活动
+    private void AttendActivity(MouseEvent e) {
+        List<String> stringList = SwingUtil.getFieldToString(activityCase, activityId);
+        ApplyVO applyVO = new ApplyVO(stringList.get(0),Integer.parseInt(stringList.get(1)));
+        Integer message = LoginRegisterSocket.getVOReturnMessage(applyVO);
+        if (message.equals(SUCCESS)){
+            JOptionPane.showMessageDialog(null,"请求已发送,等待管理员审核！");
+        }else {
+            JOptionPane.showMessageDialog(null,"服务器出现故障！");
         }
+        SwingUtil.makeFieldToEmpty(activityCase,activityId);
     }
 
+
+    //退出登录
     private void logout(MouseEvent e) {
         this.dispose();
-        new LoginView();
+        new NotLoginView();
     }
 
-
-
+    //和管理员聊天
+    private void sendMessage(MouseEvent e) {
+        // TODO add your code here
+    }
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
@@ -135,6 +123,14 @@ public class MainView extends JFrame implements TypeNumber {
         scrollPane10 = new JScrollPane();
         announcement = new JEditorPane();
         panel3 = new JPanel();
+        scrollPane1 = new JScrollPane();
+        activity = new JEditorPane();
+        label13 = new JLabel();
+        activityId = new JTextField();
+        label14 = new JLabel();
+        scrollPane11 = new JScrollPane();
+        activityCase = new JTextArea();
+        button6 = new JButton();
         panel4 = new JPanel();
         label1 = new JLabel();
         siteName = new JTextField();
@@ -160,6 +156,11 @@ public class MainView extends JFrame implements TypeNumber {
         textArea1 = new JTextArea();
         button4 = new JButton();
         panel6 = new JPanel();
+        scrollPane12 = new JScrollPane();
+        chat = new JEditorPane();
+        scrollPane13 = new JScrollPane();
+        chatFiled = new JTextArea();
+        button7 = new JButton();
         panel2 = new JPanel();
         label2 = new JLabel();
         label3 = new JLabel();
@@ -215,6 +216,53 @@ public class MainView extends JFrame implements TypeNumber {
             //======== panel3 ========
             {
                 panel3.setLayout(null);
+
+                //======== scrollPane1 ========
+                {
+
+                    //---- activity ----
+                    activity.setFont(new Font("\u534e\u6587\u65b0\u9b4f", Font.PLAIN, 8));
+                    activity.setEditable(false);
+                    scrollPane1.setViewportView(activity);
+                }
+                panel3.add(scrollPane1);
+                scrollPane1.setBounds(0, 0, 475, 490);
+
+                //---- label13 ----
+                label13.setText("\u53c2\u52a0\u7684\u6d3b\u52a8\u7f16\u53f7:");
+                label13.setFont(new Font("\u534e\u6587\u65b0\u9b4f", Font.BOLD, 16));
+                panel3.add(label13);
+                label13.setBounds(505, 35, 125, 20);
+                panel3.add(activityId);
+                activityId.setBounds(635, 30, 155, activityId.getPreferredSize().height);
+
+                //---- label14 ----
+                label14.setText("\u53c2\u52a0\u539f\u56e0:");
+                label14.setFont(new Font("\u534e\u6587\u65b0\u9b4f", Font.BOLD, 16));
+                panel3.add(label14);
+                label14.setBounds(510, 120, 115, 25);
+
+                //======== scrollPane11 ========
+                {
+
+                    //---- activityCase ----
+                    activityCase.setFont(new Font("\u534e\u6587\u65b0\u9b4f", Font.PLAIN, 14));
+                    scrollPane11.setViewportView(activityCase);
+                }
+                panel3.add(scrollPane11);
+                scrollPane11.setBounds(525, 160, 290, 220);
+
+                //---- button6 ----
+                button6.setText("\u63d0\u4ea4");
+                button6.setFont(new Font("\u534e\u6587\u65b0\u9b4f", Font.BOLD, 16));
+                button6.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        AttendActivity(e);
+                    }
+                });
+                panel3.add(button6);
+                button6.setBounds(590, 425, 160, 45);
 
                 {
                     // compute preferred size
@@ -392,6 +440,38 @@ public class MainView extends JFrame implements TypeNumber {
             {
                 panel6.setLayout(null);
 
+                //======== scrollPane12 ========
+                {
+
+                    //---- chat ----
+                    chat.setEditable(false);
+                    scrollPane12.setViewportView(chat);
+                }
+                panel6.add(scrollPane12);
+                scrollPane12.setBounds(0, 0, 835, 410);
+
+                //======== scrollPane13 ========
+                {
+
+                    //---- chatFiled ----
+                    chatFiled.setFont(new Font("\u534e\u6587\u65b0\u9b4f", Font.PLAIN, 16));
+                    scrollPane13.setViewportView(chatFiled);
+                }
+                panel6.add(scrollPane13);
+                scrollPane13.setBounds(0, 410, 680, 85);
+
+                //---- button7 ----
+                button7.setText("\u53d1\u9001");
+                button7.setFont(new Font("\u534e\u6587\u65b0\u9b4f", Font.BOLD, 20));
+                button7.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        sendMessage(e);
+                    }
+                });
+                panel6.add(button7);
+                button7.setBounds(680, 410, 155, 85);
+
                 {
                     // compute preferred size
                     Dimension preferredSize = new Dimension();
@@ -539,8 +619,7 @@ public class MainView extends JFrame implements TypeNumber {
         setLocationRelativeTo(getOwner());
         // JFormDesigner - End of component initialization  //GEN-END:initComponents
         label7.setText(TrainingContext.getLocal_User_Name());
-        editorPane1.setContentType("text/html");
-        announcement.setContentType("text/html");
+        SwingUtil.makeEditorPaneBeHTML(editorPane1,announcement,activity);
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
@@ -549,6 +628,14 @@ public class MainView extends JFrame implements TypeNumber {
     private JScrollPane scrollPane10;
     private JEditorPane announcement;
     private JPanel panel3;
+    private JScrollPane scrollPane1;
+    private JEditorPane activity;
+    private JLabel label13;
+    private JTextField activityId;
+    private JLabel label14;
+    private JScrollPane scrollPane11;
+    private JTextArea activityCase;
+    private JButton button6;
     private JPanel panel4;
     private JLabel label1;
     private JTextField siteName;
@@ -574,6 +661,11 @@ public class MainView extends JFrame implements TypeNumber {
     private JTextArea textArea1;
     private JButton button4;
     private JPanel panel6;
+    private JScrollPane scrollPane12;
+    private JEditorPane chat;
+    private JScrollPane scrollPane13;
+    private JTextArea chatFiled;
+    private JButton button7;
     private JPanel panel2;
     private JLabel label2;
     private JLabel label3;

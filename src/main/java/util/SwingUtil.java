@@ -39,4 +39,10 @@ public class SwingUtil {
         return stringList;
     }
 
+    public static void makeEditorPaneBeHTML(JEditorPane... editorPanes){
+        for (JEditorPane editorPane : editorPanes){
+            editorPane.setContentType("text/html");
+        }
+    }
+
 }

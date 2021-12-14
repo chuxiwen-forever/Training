@@ -22,11 +22,13 @@ import javax.swing.*;
  * @author Admin
  */
 public class LoginView extends JFrame implements TypeNumber {
+    private NotLoginView notLoginView;
 
-    public LoginView() {
+    public LoginView(NotLoginView notLoginView) {
         this.setVisible(true);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         initComponents();
+        this.notLoginView = notLoginView;
     }
 
     private void register(MouseEvent e) {
@@ -46,6 +48,7 @@ public class LoginView extends JFrame implements TypeNumber {
         }else if (result.equals(SUCCESS)){
             TrainingContext.setLocal_User_Name(username);
             new MainView();
+            notLoginView.dispose();
             this.dispose();
         }else{
             JOptionPane.showMessageDialog(null,"服务器出现故障!");

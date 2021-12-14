@@ -28,6 +28,9 @@ public class LoginRegisterSocket implements TypeNumber{
             }else if (vo instanceof SiteVO){
                 SiteVO siteVO = (SiteVO) vo;
                 outputStream.writeObject(siteVO);
+            }else if (vo instanceof ApplyVO){
+                ApplyVO applyVO = (ApplyVO) vo;
+                outputStream.writeObject(applyVO);
             }
             outputStream.flush();
 

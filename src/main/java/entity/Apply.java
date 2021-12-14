@@ -36,4 +36,9 @@ public class Apply implements Serializable {
      * 报名人
      */
     private String username;
+
+    /**
+     * 报名活动的id
+     */
+    private Integer activityId;
 }

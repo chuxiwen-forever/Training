@@ -1,9 +1,7 @@
-import view.LoginView;
-
-import javax.swing.*;
+import view.NotLoginView;
 
 public class Main {
     public static void main(String[] args) {
-        new LoginView();
+        new NotLoginView();
     }
 }

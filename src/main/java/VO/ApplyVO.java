@@ -10,6 +10,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ApplyVO implements Serializable,VO {
+    private static final long serialVersionUID = -671958543348052007L;
 
     /**
      * 申请原因

@@ -10,6 +10,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SiteVO implements Serializable,VO {
+    private static final long serialVersionUID = -671958543348052007L;
     /**
      * 场地名称
      */

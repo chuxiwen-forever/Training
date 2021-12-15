@@ -40,6 +40,7 @@ public class LoginView extends JFrame implements TypeNumber {
         String username = usernameField.getText();
         String password = new String(passwordField.getPassword());
         if (username.equals("admin")&&password.equals("123456")){
+            TrainingContext.setLocal_User_Name("admin");
             new AdminView();
             notLoginView.dispose();
             this.dispose();

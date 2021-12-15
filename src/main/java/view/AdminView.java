@@ -42,10 +42,11 @@ public class AdminView extends JFrame {
     }
 
     private void commentCommit(MouseEvent e) {
-        String content = chatArea.getText();
+        String content = commentArea.getText();
         commentService.giveOutComment(content);
         JOptionPane.showMessageDialog(null,"评论成功");
-        SwingUtil.makeFieldToEmpty(chatArea);
+        SwingUtil.makeFieldToEmpty(commentArea);
+        ShowInSwing.showAllMessageInPeopleView(commentPane,null,null);
     }
 
     private void deletePeople(MouseEvent e) {
@@ -53,6 +54,7 @@ public class AdminView extends JFrame {
         peopleService.deletePeople(username);
         JOptionPane.showMessageDialog(null,"删除成功");
         SwingUtil.makeFieldToEmpty(peopleField);
+        ShowInSwing.showAllMessageInAdminView(null,peoplePane,null,null,null,null,null);
     }
 
     private void activityCommit(MouseEvent e) {
@@ -60,6 +62,7 @@ public class AdminView extends JFrame {
         activityService.addActivity(stringList.get(0),stringList.get(1));
         JOptionPane.showMessageDialog(null,"活动添加成功!");
         SwingUtil.makeFieldToEmpty(activityField1,activityField2);
+        ShowInSwing.showAllMessageInAdminView(null,null,null,activityPane,null,null,null);
     }
 
     private void announcementCommit(MouseEvent e) {
@@ -67,6 +70,7 @@ public class AdminView extends JFrame {
         announcementService.addAnnouncement(content);
         JOptionPane.showMessageDialog(null,"公告添加成功!");
         SwingUtil.makeFieldToEmpty(announcementArea);
+        ShowInSwing.showAllMessageInAdminView(announcementPane,null,null,null,null,null,null);
     }
 
     private void logout(MouseEvent e) {

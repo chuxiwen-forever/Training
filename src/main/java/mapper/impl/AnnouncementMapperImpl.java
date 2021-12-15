@@ -30,4 +30,18 @@ public class AnnouncementMapperImpl implements AnnouncementMapper {
         DBUtil.close(conn,statement,set);
         return announcementList;
     }
+
+    @Override
+    public void insertAnnouncement(Announcement announcement) {
+        Connection conn = DBUtil.getConnection();
+        PreparedStatement statement = null;
+        try {
+            statement = conn.prepareStatement(insert);
+            statement.setString(1, announcement.getContent());
+            statement.execute();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        DBUtil.close(conn,statement);
+    }
 }

@@ -6,4 +6,5 @@ public interface AnnouncementService {
 
     Map<String,Object> returnAnnouncement();
 
+    void addAnnouncement(String content);
 }

@@ -7,34 +7,26 @@ package view;
 import VO.AppealVO;
 import VO.SiteVO;
 import VO.ApplyVO;
-import VO.VO;
-import service.ActivityService;
-import service.AnnouncementService;
-import service.CommentServer;
-import service.impl.ActivityServiceImpl;
-import service.impl.AnnouncementServiceImpl;
-import service.impl.CommentServerImpl;
+import service.CommentService;
+import service.impl.CommentServiceImpl;
 import util.*;
 
 import java.awt.*;
 import java.awt.event.*;
 import java.util.List;
-import java.util.Map;
 import javax.swing.*;
 
 /**
  * @author Admin
  */
 public class MainView extends JFrame implements TypeNumber {
-    private static CommentServer commentServer = new CommentServerImpl();
+    private static CommentService commentServer = new CommentServiceImpl();
 
     public MainView() {
         this.setVisible(true);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         initComponents();
-        ShowInSwing.showAllComment(editorPane1);
-        ShowInSwing.showAnnouncement(announcement);
-        ShowInSwing.showActivity(activity);
+        ShowInSwing.showAllMessageInPeopleView(editorPane1,announcement,activity);
     }
 
     /**
@@ -67,7 +59,7 @@ public class MainView extends JFrame implements TypeNumber {
         commentServer.giveOutComment(comment);
         JOptionPane.showMessageDialog(null,"发表成功！");
         SwingUtil.makeFieldToEmpty(textArea1);
-        ShowInSwing.showAllComment(editorPane1);
+        ShowInSwing.showAllMessageInPeopleView(editorPane1,null,null);
     }
 
 

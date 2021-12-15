@@ -4,16 +4,37 @@
 
 package view;
 
+import service.ActivityService;
+import service.AnnouncementService;
+import service.CommentService;
+import service.PeopleService;
+import service.impl.ActivityServiceImpl;
+import service.impl.AnnouncementServiceImpl;
+import service.impl.CommentServiceImpl;
+import service.impl.PeopleServiceImpl;
+import util.ShowInSwing;
+import util.SwingUtil;
+
 import java.awt.*;
 import java.awt.event.*;
+import java.util.List;
 import javax.swing.*;
 
 /**
  * @author Admin
  */
 public class AdminView extends JFrame {
+    private AnnouncementService announcementService = new AnnouncementServiceImpl();
+    private PeopleService peopleService = new PeopleServiceImpl();
+    private ActivityService activityService = new ActivityServiceImpl();
+    private CommentService commentService = new CommentServiceImpl();
+
+
     public AdminView() {
         initComponents();
+        this.setVisible(true);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        ShowInSwing.showAllMessageInAdminView(announcementPane,peoplePane,appealPane,activityPane,applyPane,sitePane,commentPane);
     }
 
     private void chatCommit(MouseEvent e) {
@@ -21,19 +42,36 @@ public class AdminView extends JFrame {
     }
 
     private void commentCommit(MouseEvent e) {
-
+        String content = chatArea.getText();
+        commentService.giveOutComment(content);
+        JOptionPane.showMessageDialog(null,"评论成功");
+        SwingUtil.makeFieldToEmpty(chatArea);
     }
 
     private void deletePeople(MouseEvent e) {
-        // TODO add your code here
+        String username = peopleField.getText();
+        peopleService.deletePeople(username);
+        JOptionPane.showMessageDialog(null,"删除成功");
+        SwingUtil.makeFieldToEmpty(peopleField);
     }
 
     private void activityCommit(MouseEvent e) {
-
+        List<String> stringList = SwingUtil.getFieldToString(activityField1, activityField2);
+        activityService.addActivity(stringList.get(0),stringList.get(1));
+        JOptionPane.showMessageDialog(null,"活动添加成功!");
+        SwingUtil.makeFieldToEmpty(activityField1,activityField2);
     }
 
     private void announcementCommit(MouseEvent e) {
-        // TODO add your code here
+        String content = announcementArea.getText();
+        announcementService.addAnnouncement(content);
+        JOptionPane.showMessageDialog(null,"公告添加成功!");
+        SwingUtil.makeFieldToEmpty(announcementArea);
+    }
+
+    private void logout(MouseEvent e) {
+        this.dispose();
+        new NotLoginView();
     }
 
     private void initComponents() {
@@ -502,6 +540,12 @@ public class AdminView extends JFrame {
         //---- button1 ----
         button1.setText("\u9000\u51fa\u767b\u5f55");
         button1.setFont(new Font("\u534e\u6587\u65b0\u9b4f", Font.BOLD, 18));
+        button1.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                logout(e);
+            }
+        });
         contentPane.add(button1);
         button1.setBounds(645, 20, 115, 55);
 
@@ -522,6 +566,7 @@ public class AdminView extends JFrame {
         pack();
         setLocationRelativeTo(getOwner());
         // JFormDesigner - End of component initialization  //GEN-END:initComponents
+        SwingUtil.makeEditorPaneBeHTML(announcementPane,peoplePane,appealPane,activityPane,applyPane,sitePane,chatPane,commentPane);
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables

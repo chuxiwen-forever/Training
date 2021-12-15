@@ -33,27 +33,34 @@ public class LoginView extends JFrame implements TypeNumber {
 
     private void register(MouseEvent e) {
         new RegisterView();
-        usernameField.setText("");
-        passwordField.setText("");
+        SwingUtil.makeFieldToEmpty(usernameField,passwordField);
     }
 
     private void Login(MouseEvent e) {
         String username = usernameField.getText();
         String password = new String(passwordField.getPassword());
-        PeopleVO peopleVO = new PeopleVO(new People(null,username,password),LOGIN);
-        Integer result = LoginRegisterSocket.getVOReturnMessage(peopleVO);
-        if (result.equals(FAILED)){
-            JOptionPane.showMessageDialog(null,"用户名或密码错误");
-            SwingUtil.makeFieldToEmpty(passwordField);
-        }else if (result.equals(SUCCESS)){
-            TrainingContext.setLocal_User_Name(username);
-            new MainView();
+        if (username.equals("admin")&&password.equals("123456")){
+            new AdminView();
             notLoginView.dispose();
             this.dispose();
-        }else{
-            JOptionPane.showMessageDialog(null,"服务器出现故障!");
-            SwingUtil.makeFieldToEmpty(usernameField,passwordField);
+        }else
+        {
+            PeopleVO peopleVO = new PeopleVO(new People(null,username,password),LOGIN);
+            Integer result = LoginRegisterSocket.getVOReturnMessage(peopleVO);
+            if (result.equals(FAILED)){
+                JOptionPane.showMessageDialog(null,"用户名或密码错误");
+                SwingUtil.makeFieldToEmpty(passwordField);
+            }else if (result.equals(SUCCESS)){
+                TrainingContext.setLocal_User_Name(username);
+                new MainView();
+                notLoginView.dispose();
+                this.dispose();
+            }else{
+                JOptionPane.showMessageDialog(null,"服务器出现故障!");
+                SwingUtil.makeFieldToEmpty(usernameField,passwordField);
+            }
         }
+
     }
 
     private void initComponents() {

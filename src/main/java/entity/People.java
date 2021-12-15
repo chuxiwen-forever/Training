@@ -1,8 +1,6 @@
 package entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.io.Serializable;
 
@@ -10,9 +8,11 @@ import java.io.Serializable;
  * 用户实体类
  */
 
-@Data
+
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
 public class People implements Serializable {
 
     private static final long serialVersionUID = -671958543348052007L;
@@ -31,4 +31,8 @@ public class People implements Serializable {
      */
     private String password;
 
+    @Override
+    public String toString() {
+        return "<h3>  id:" + id + " 姓名:" + username + "</h3><hr/>";
+    }
 }

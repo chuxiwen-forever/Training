@@ -349,6 +349,7 @@ new FormModel {
 				name: "button1"
 				"text": "退出登录"
 				"font": new java.awt.Font( "华文新魏", 1, 18 )
+				addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "logout", true ) )
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
 				"x": 645
 				"y": 20

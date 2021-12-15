@@ -2,7 +2,7 @@ package service;
 
 import java.util.Map;
 
-public interface CommentServer {
+public interface CommentService {
 
     /**
      * 发表评论

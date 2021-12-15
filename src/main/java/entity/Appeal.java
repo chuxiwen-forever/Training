@@ -1,8 +1,6 @@
 package entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.io.Serializable;
 import java.sql.Date;
@@ -11,9 +9,11 @@ import java.sql.Date;
  * 诉求实体类
  */
 
-@Data
+
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
 public class Appeal implements Serializable {
     private static final long serialVersionUID = -671958543348052007L;
 
@@ -46,4 +46,10 @@ public class Appeal implements Serializable {
      * 诉求人
      */
     private String number;
+
+    @Override
+    public String toString() {
+        return "<h2> 标题："+title+"</h2> <h4> 诉求人:"+number+" 诉求日期:"+createTime.toString()+"</h4><br/>"+
+        "<h3> 诉求内容:" + content + "</h3> <br/>  <h4>备注："+note+ "</h4><hr/>";
+    }
 }

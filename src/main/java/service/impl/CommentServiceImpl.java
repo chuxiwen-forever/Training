@@ -3,7 +3,7 @@ package service.impl;
 import entity.Comment;
 import mapper.CommentMapper;
 import mapper.impl.CommentMapperImpl;
-import service.CommentServer;
+import service.CommentService;
 import util.TrainingContext;
 
 import java.sql.Date;
@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class CommentServerImpl implements CommentServer {
+public class CommentServiceImpl implements CommentService {
     private CommentMapper commentMapper = new CommentMapperImpl();
 
     @Override

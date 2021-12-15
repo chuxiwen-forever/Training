@@ -50,8 +50,8 @@ public class AppealMapperImpl implements AppealMapper {
                 statement = conn.prepareStatement(selectAll);
             }else{
                 statement = conn.prepareStatement(selectByName);
+                statement.setString(1,number);
             }
-            statement.setString(1,number);
             set = statement.executeQuery();
             while(set.next()){
                 appealList.add(new Appeal(

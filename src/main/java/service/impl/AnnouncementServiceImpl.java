@@ -28,4 +28,11 @@ public class AnnouncementServiceImpl implements AnnouncementService {
         }
         return map;
     }
+
+    @Override
+    public void addAnnouncement(String content) {
+        Announcement announcement = new Announcement();
+        announcement.setContent(content);
+        announcementMapper.insertAnnouncement(announcement);
+    }
 }

@@ -4,18 +4,11 @@
 
 package view;
 
-import service.ActivityService;
-import service.AnnouncementService;
-import service.CommentServer;
-import service.impl.ActivityServiceImpl;
-import service.impl.AnnouncementServiceImpl;
-import service.impl.CommentServerImpl;
 import util.ShowInSwing;
 import util.SwingUtil;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.util.Map;
 import javax.swing.*;
 
 /**
@@ -27,9 +20,7 @@ public class NotLoginView extends JFrame {
         initComponents();
         this.setVisible(true);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        ShowInSwing.showAnnouncement(editorPane3);
-        ShowInSwing.showAllComment(editorPane4);
-        ShowInSwing.showActivity(editorPane2);
+        ShowInSwing.showAllMessageInPeopleView(editorPane4,editorPane3,editorPane2);
     }
 
     private void ToLogin(MouseEvent e) {

@@ -5,6 +5,7 @@ import mapper.ActivityMapper;
 import mapper.impl.ActivityMapperImpl;
 import service.ActivityService;
 
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,5 +29,14 @@ public class ActivityServiceImpl implements ActivityService {
             map.put("data",builder.toString());
         }
         return map;
+    }
+
+    @Override
+    public void addActivity(String theme, String site) {
+        Activity activity = new Activity();
+        activity.setTheme(theme);
+        activity.setTime(new Date(System.currentTimeMillis()));
+        activity.setSite(site);
+        activityMapper.insert(activity);
     }
 }

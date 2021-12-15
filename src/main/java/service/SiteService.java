@@ -2,6 +2,8 @@ package service;
 
 import VO.SiteVO;
 
+import java.util.Map;
+
 public interface SiteService {
 
     /**
@@ -10,4 +12,8 @@ public interface SiteService {
      */
     void applySite(SiteVO siteVO);
 
+    /**
+     * 管理员查看所以场地
+     */
+    Map<String,Object> showAllSite();
 }

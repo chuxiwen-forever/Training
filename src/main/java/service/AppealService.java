@@ -4,6 +4,7 @@ package service;
 import entity.Appeal;
 
 import java.util.List;
+import java.util.Map;
 
 public interface AppealService {
 
@@ -25,5 +26,5 @@ public interface AppealService {
     /**
      * 管理员观看所有人的诉求
      */
-    List<Appeal> getAllAppeal();
+    Map<String,Object> getAllAppeal();
 }

@@ -30,4 +30,20 @@ public class ActivityMapperImpl implements ActivityMapper {
         DBUtil.close(conn,statement,set);
         return activityList;
     }
+
+    @Override
+    public void insert(Activity activity) {
+        Connection conn = DBUtil.getConnection();
+        PreparedStatement statement = null;
+        try {
+            statement = conn.prepareStatement(insert);
+            statement.setString(1, activity.getTheme());
+            statement.setDate(2,activity.getTime());
+            statement.setString(3, activity.getSite());
+            statement.execute();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        DBUtil.close(conn,statement);
+    }
 }

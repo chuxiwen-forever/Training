@@ -21,7 +21,7 @@ public interface AppealService {
      * @param username
      * @return 上报诉求
      */
-    List<Appeal> getLocalAppeal(String username);
+    Map<String,Object> getLocalAppeal(String username);
 
     /**
      * 管理员观看所有人的诉求

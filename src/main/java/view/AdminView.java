@@ -15,6 +15,7 @@ import service.impl.CommentServiceImpl;
 import service.impl.PeopleServiceImpl;
 import util.ShowInSwing;
 import util.SwingUtil;
+import util.TrainingContext;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -29,26 +30,28 @@ public class AdminView extends JFrame {
     private PeopleService peopleService = new PeopleServiceImpl();
     private ActivityService activityService = new ActivityServiceImpl();
     private CommentService commentService = new CommentServiceImpl();
+    private boolean isCloseWindows = false;
     private UDPClient client = new UDPClient("localhost",8200);
 
 
     public AdminView() {
+        client.sendMessage("");
         initComponents();
         this.setVisible(true);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         ShowInSwing.showAllMessageInAdminView(announcementPane,peoplePane,appealPane,activityPane,applyPane,sitePane,commentPane);
-        client.sendMessage("我上线了！！！");
         new Thread(()->{
             while(true){
+                if (isCloseWindows)break;
                 String message = client.receiveMessage();
-                System.out.println(message);
+                chatPane.append(message);
             }
         }).start();
     }
 
     private void chatCommit(MouseEvent e) {
         String message = chatArea.getText();
-        client.sendMessage(message);
+        client.sendMessage(TrainingContext.getLocal_User_Name()+" :  "+message+"\n");
         SwingUtil.makeFieldToEmpty(chatArea);
     }
 
@@ -86,8 +89,9 @@ public class AdminView extends JFrame {
 
     private void logout(MouseEvent e) {
         this.dispose();
-        new NotLoginView();
+        isCloseWindows = true;
         client.close();
+        new NotLoginView();
     }
 
     private void initComponents() {
@@ -128,11 +132,11 @@ public class AdminView extends JFrame {
         scrollPane10 = new JScrollPane();
         sitePane = new JEditorPane();
         panel6 = new JPanel();
-        scrollPane8 = new JScrollPane();
-        chatPane = new JEditorPane();
         scrollPane9 = new JScrollPane();
         chatArea = new JTextArea();
         button2 = new JButton();
+        scrollPane1 = new JScrollPane();
+        chatPane = new JTextArea();
         panel8 = new JPanel();
         scrollPane2 = new JScrollPane();
         commentPane = new JEditorPane();
@@ -448,16 +452,6 @@ public class AdminView extends JFrame {
             {
                 panel6.setLayout(null);
 
-                //======== scrollPane8 ========
-                {
-
-                    //---- chatPane ----
-                    chatPane.setEditable(false);
-                    scrollPane8.setViewportView(chatPane);
-                }
-                panel6.add(scrollPane8);
-                scrollPane8.setBounds(5, 5, 770, 315);
-
                 //======== scrollPane9 ========
                 {
 
@@ -479,6 +473,17 @@ public class AdminView extends JFrame {
                 });
                 panel6.add(button2);
                 button2.setBounds(620, 335, 150, 80);
+
+                //======== scrollPane1 ========
+                {
+
+                    //---- chatPane ----
+                    chatPane.setEditable(false);
+                    chatPane.setFont(new Font("\u534e\u6587\u65b0\u9b4f", Font.BOLD, 14));
+                    scrollPane1.setViewportView(chatPane);
+                }
+                panel6.add(scrollPane1);
+                scrollPane1.setBounds(5, 5, 770, 315);
 
                 {
                     // compute preferred size
@@ -582,7 +587,7 @@ public class AdminView extends JFrame {
         pack();
         setLocationRelativeTo(getOwner());
         // JFormDesigner - End of component initialization  //GEN-END:initComponents
-        SwingUtil.makeEditorPaneBeHTML(announcementPane,peoplePane,appealPane,activityPane,applyPane,sitePane,chatPane,commentPane);
+        SwingUtil.makeEditorPaneBeHTML(announcementPane,peoplePane,appealPane,activityPane,applyPane,sitePane,commentPane);
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
@@ -622,11 +627,11 @@ public class AdminView extends JFrame {
     private JScrollPane scrollPane10;
     private JEditorPane sitePane;
     private JPanel panel6;
-    private JScrollPane scrollPane8;
-    private JEditorPane chatPane;
     private JScrollPane scrollPane9;
     private JTextArea chatArea;
     private JButton button2;
+    private JScrollPane scrollPane1;
+    private JTextArea chatPane;
     private JPanel panel8;
     private JScrollPane scrollPane2;
     private JEditorPane commentPane;

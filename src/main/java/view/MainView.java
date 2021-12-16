@@ -23,6 +23,7 @@ import javax.swing.*;
 public class MainView extends JFrame implements TypeNumber {
     private CommentService commentServer = new CommentServiceImpl();
     private UDPClient client = new UDPClient("localhost",8200);
+    private Boolean isCloseWindow = false;
 
     public MainView() {
         this.setVisible(true);
@@ -31,8 +32,9 @@ public class MainView extends JFrame implements TypeNumber {
         ShowInSwing.showAllMessageInPeopleView(editorPane1,announcement,activity);
         new Thread(()->{
             while(true){
+                if (isCloseWindow)break;
                 String message = client.receiveMessage();
-                System.out.println(message);
+                chatPane.append(message);
             }
         }).start();
     }
@@ -55,7 +57,7 @@ public class MainView extends JFrame implements TypeNumber {
 
     //得到自己的诉求信息
     private void getLocalAppeal(MouseEvent e) {
-        // TODO add your code here
+        new AppealView();
     }
 
     /**
@@ -108,14 +110,15 @@ public class MainView extends JFrame implements TypeNumber {
     //退出登录
     private void logout(MouseEvent e) {
         this.dispose();
-        new NotLoginView();
+        isCloseWindow = true;
         client.close();
+        new NotLoginView();
     }
 
     //和管理员聊天
     private void sendMessage(MouseEvent e) {
         String massage = chatFiled.getText();
-        client.sendMessage(massage);
+        client.sendMessage(TrainingContext.getLocal_User_Name()+" :  "+massage+"\n");
         SwingUtil.makeFieldToEmpty(chatFiled);
     }
 
@@ -159,11 +162,11 @@ public class MainView extends JFrame implements TypeNumber {
         textArea1 = new JTextArea();
         button4 = new JButton();
         panel6 = new JPanel();
-        scrollPane12 = new JScrollPane();
-        chat = new JEditorPane();
         scrollPane13 = new JScrollPane();
         chatFiled = new JTextArea();
         button7 = new JButton();
+        scrollPane12 = new JScrollPane();
+        chatPane = new JTextArea();
         panel2 = new JPanel();
         label2 = new JLabel();
         label3 = new JLabel();
@@ -443,16 +446,6 @@ public class MainView extends JFrame implements TypeNumber {
             {
                 panel6.setLayout(null);
 
-                //======== scrollPane12 ========
-                {
-
-                    //---- chat ----
-                    chat.setEditable(false);
-                    scrollPane12.setViewportView(chat);
-                }
-                panel6.add(scrollPane12);
-                scrollPane12.setBounds(0, 0, 835, 410);
-
                 //======== scrollPane13 ========
                 {
 
@@ -474,6 +467,17 @@ public class MainView extends JFrame implements TypeNumber {
                 });
                 panel6.add(button7);
                 button7.setBounds(680, 410, 155, 85);
+
+                //======== scrollPane12 ========
+                {
+
+                    //---- chatPane ----
+                    chatPane.setEditable(false);
+                    chatPane.setFont(new Font("\u534e\u6587\u65b0\u9b4f", Font.BOLD, 18));
+                    scrollPane12.setViewportView(chatPane);
+                }
+                panel6.add(scrollPane12);
+                scrollPane12.setBounds(5, 5, 825, 405);
 
                 {
                     // compute preferred size
@@ -664,11 +668,11 @@ public class MainView extends JFrame implements TypeNumber {
     private JTextArea textArea1;
     private JButton button4;
     private JPanel panel6;
-    private JScrollPane scrollPane12;
-    private JEditorPane chat;
     private JScrollPane scrollPane13;
     private JTextArea chatFiled;
     private JButton button7;
+    private JScrollPane scrollPane12;
+    private JTextArea chatPane;
     private JPanel panel2;
     private JLabel label2;
     private JLabel label3;

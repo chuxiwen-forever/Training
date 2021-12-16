@@ -7,6 +7,7 @@ import service.AppealService;
 import util.TrainingContext;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,14 +27,23 @@ public class AppealServiceImpl implements AppealService {
     }
 
     @Override
-    public List<Appeal> getLocalAppeal(String username) {
-        return appealMapper.selectByName(username);
+    public Map<String,Object> getLocalAppeal(String username) {
+        return getAppeal(username);
     }
 
     @Override
     public Map<String,Object> getAllAppeal() {
+        return getAppeal(null);
+    }
+
+    private Map<String,Object> getAppeal(String username){
         Map<String,Object> map = new HashMap<>();
-        List<Appeal> appealList = appealMapper.selectAll();
+        List<Appeal> appealList = null;
+        if (username == null){
+            appealList = appealMapper.selectAll();
+        }else {
+            appealList = appealMapper.selectByName(username);
+        }
         StringBuilder builder = new StringBuilder();
         if (appealList.isEmpty()){
             map.put("value","No");

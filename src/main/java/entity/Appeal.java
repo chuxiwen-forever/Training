@@ -52,4 +52,15 @@ public class Appeal implements Serializable {
         return "<h2> 标题："+title+"</h2> <h4> 诉求人:"+number+" 诉求日期:"+createTime.toString()+"</h4><br/>"+
         "<h3> 诉求内容:" + content + "</h3> <br/>  <h4>备注："+note+ "</h4><hr/>";
     }
+
+    public String toString0() {
+        return "Appeal{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", createTime=" + createTime +
+                ", note='" + note + '\'' +
+                ", number='" + number + '\'' +
+                '}'+"\n";
+    }
 }

@@ -44,7 +44,7 @@ public class UDPClient {
             socket.receive(packet);
             message = new String(packet.getData(),0,packet.getLength());
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("客户端断开连接了...");
         }
         return message;
     }

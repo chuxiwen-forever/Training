@@ -262,18 +262,6 @@ new FormModel {
 				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
 					name: "panel6"
 					add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
-						name: "scrollPane8"
-						add( new FormComponent( "javax.swing.JEditorPane" ) {
-							name: "chatPane"
-							"editable": false
-						} )
-					}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
-						"x": 5
-						"y": 5
-						"width": 770
-						"height": 315
-					} )
-					add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
 						name: "scrollPane9"
 						add( new FormComponent( "javax.swing.JTextArea" ) {
 							name: "chatArea"
@@ -295,6 +283,19 @@ new FormModel {
 						"y": 335
 						"width": 150
 						"height": 80
+					} )
+					add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+						name: "scrollPane1"
+						add( new FormComponent( "javax.swing.JTextArea" ) {
+							name: "chatPane"
+							"editable": false
+							"font": new java.awt.Font( "华文新魏", 1, 14 )
+						} )
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+						"x": 5
+						"y": 5
+						"width": 770
+						"height": 315
 					} )
 				}, new FormLayoutConstraints( null ) {
 					"title": "聊天系统"

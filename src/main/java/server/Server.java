@@ -29,8 +29,13 @@ public class Server implements TypeNumber {
     private static ApplyService applyService = new ApplyServiceImpl();
 
     public static void main(String[] args) throws Exception {
+
+        new Thread(()->{
+            new UDPServer("localhost",8200).garrison();
+        }).start();
+
         ServerSocket serverSocket = new ServerSocket(8100);
-        System.out.println("服务器已经启动");
+        System.out.println("服务器业务端口8100端口已启动...");
 
         while(true){
             Socket accept = serverSocket.accept();

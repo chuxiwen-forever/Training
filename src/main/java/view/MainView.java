@@ -7,6 +7,7 @@ package view;
 import VO.AppealVO;
 import VO.SiteVO;
 import VO.ApplyVO;
+import server.UDPClient;
 import service.CommentService;
 import service.impl.CommentServiceImpl;
 import util.*;
@@ -20,13 +21,20 @@ import javax.swing.*;
  * @author Admin
  */
 public class MainView extends JFrame implements TypeNumber {
-    private static CommentService commentServer = new CommentServiceImpl();
+    private CommentService commentServer = new CommentServiceImpl();
+    private UDPClient client = new UDPClient("localhost",8200);
 
     public MainView() {
         this.setVisible(true);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         initComponents();
         ShowInSwing.showAllMessageInPeopleView(editorPane1,announcement,activity);
+        new Thread(()->{
+            while(true){
+                String message = client.receiveMessage();
+                System.out.println(message);
+            }
+        }).start();
     }
 
     /**
@@ -101,11 +109,14 @@ public class MainView extends JFrame implements TypeNumber {
     private void logout(MouseEvent e) {
         this.dispose();
         new NotLoginView();
+        client.close();
     }
 
     //和管理员聊天
     private void sendMessage(MouseEvent e) {
-        // TODO add your code here
+        String massage = chatFiled.getText();
+        client.sendMessage(massage);
+        SwingUtil.makeFieldToEmpty(chatFiled);
     }
 
     private void initComponents() {

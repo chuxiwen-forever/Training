@@ -14,12 +14,13 @@ public class UDPServer {
     private Integer port;
     private List<Map<String,Object>> list = new ArrayList<>();
 
-    private UDPServer(String ip,Integer port){
+    public UDPServer(String ip,Integer port){
         this.ip = ip;
         this.port = port;
     }
 
     public void garrison(){
+        System.out.println("服务器聊天端口8200端口已启动...");
         try {
             socket = new DatagramSocket(port,InetAddress.getByName(ip));
             while (true){

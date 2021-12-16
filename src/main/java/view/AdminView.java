@@ -4,6 +4,7 @@
 
 package view;
 
+import server.UDPClient;
 import service.ActivityService;
 import service.AnnouncementService;
 import service.CommentService;
@@ -28,6 +29,7 @@ public class AdminView extends JFrame {
     private PeopleService peopleService = new PeopleServiceImpl();
     private ActivityService activityService = new ActivityServiceImpl();
     private CommentService commentService = new CommentServiceImpl();
+    private UDPClient client = new UDPClient("localhost",8200);
 
 
     public AdminView() {
@@ -35,10 +37,19 @@ public class AdminView extends JFrame {
         this.setVisible(true);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         ShowInSwing.showAllMessageInAdminView(announcementPane,peoplePane,appealPane,activityPane,applyPane,sitePane,commentPane);
+        client.sendMessage("我上线了！！！");
+        new Thread(()->{
+            while(true){
+                String message = client.receiveMessage();
+                System.out.println(message);
+            }
+        }).start();
     }
 
     private void chatCommit(MouseEvent e) {
-
+        String message = chatArea.getText();
+        client.sendMessage(message);
+        SwingUtil.makeFieldToEmpty(chatArea);
     }
 
     private void commentCommit(MouseEvent e) {
@@ -76,6 +87,7 @@ public class AdminView extends JFrame {
     private void logout(MouseEvent e) {
         this.dispose();
         new NotLoginView();
+        client.close();
     }
 
     private void initComponents() {
